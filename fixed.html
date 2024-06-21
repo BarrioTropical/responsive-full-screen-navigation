@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+            text-transform: uppercase;
+        }
+
+        body{
+            margin: 0;
+            background: #161616;
+        }
+
+        .menu-open{
+            color: #fff;
+        }
+
+        .menu-open, .menu-close{
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 40px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .nav-container{
+            position: fixed;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background-color: #dfe8e0;
+            text-align: center;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .menu{
+            padding: 12vh 0 24vh;
+        }
+
+        .menu__item-link{
+            text-decoration: none;
+            color: #000;
+            display: inline-block;
+            font-size: 5vw;
+            cursor: pointer;
+            transition: opacity 0.1s;
+            line-height: 100px;
+        }
+
+        .menu__item-img{
+            position: relative;
+            top: 10px;
+            padding: 0 20px;
+            z-index: 2;
+            pointer-events: none;
+            height: 10vh;
+            max-height: 600px;
+            opacity: 1;
+            transform: scale(0);
+        }
+
+        .menu__item:hover > .menu__item-img{
+            transform: scale(1);
+            transition: all 0.2s;
+        }
+
+        @media(max-width: 900px){
+            .menu__item-link{
+                font-size: 8vw;
+                line-height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-open">menu</div>
+    <div class="nav-container">
+        <div class="menu-close">close</div>
+        <div class="menu">
+            <div class="menu__item item-1">
+                <img src="https://images.pexels.com/photos/19924964/pexels-photo-19924964/free-photo-of-arte-italia-architettura-viaggio.jpeg" class="menu__item-img">  
+                <a href="#" class="menu__item-link">Project</a>
+            </div>
+            <div class="menu__item item-2">
+                <a href="#" class="menu__item-link">Collection</a>
+                <img src="https://images.pexels.com/photos/19924964/pexels-photo-19924964/free-photo-of-arte-italia-architettura-viaggio.jpeg" class="menu__item-img"> 
+            </div>
+            <div class="menu__item item-3">
+                <img src="https://images.pexels.com/photos/19924964/pexels-photo-19924964/free-photo-of-arte-italia-architettura-viaggio.jpeg" class="menu__item-img">
+                <a href="#" class="menu__item-link">Materialism</a>
+            </div>
+            <div class="menu__item item-4">
+                <a href="#" class="menu__item-link">Journal</a>
+                <img src="https://images.pexels.com/photos/19924964/pexels-photo-19924964/free-photo-of-arte-italia-architettura-viaggio.jpeg" class="menu__item-img">
+            </div>
+            <div class="menu__item item-5">
+                <img src="https://images.pexels.com/photos/19924964/pexels-photo-19924964/free-photo-of-arte-italia-architettura-viaggio.jpeg" class="menu__item-img">
+                <a href="#" class="menu__item-link">Production</a>
+            </div>
+            <div class="menu__item item-6">
+                <a href="#" class="menu__item-link">Contact</a>
+                <img src="https://images.pexels.com/photos/19924964/pexels-photo-19924964/free-photo-of-arte-italia-architettura-viaggio.jpeg" class="menu__item-img">
+            </div>
+        </div>
+    </div>
+
+    <!-- Include jQuery and GSAP libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+
+    <script>
+        let t1 = gsap.timeline({ paused: true });
+
+        t1.to(".nav-container", 1, {
+            left: 0,
+            ease: "expo.inOut",
+        });
+
+        t1.from(".menu > div", {
+            duration: 0.8,
+            y: 100,
+            opacity: 0,
+            ease: "expo.inOut",
+            stagger: 0.1
+        }, "-=0.4");
+
+        t1.reverse();
+        $(document).on("click", ".menu-open", function(){
+            t1.reversed(!t1.reversed());
+        });
+
+        $(document).on("click", ".menu-close", function(){
+            t1.reversed(!t1.reversed());
+        });
+
+        $(document).ready(function(){
+            $(".item-1").hover(
+                function(){
+                    $(".nav-container").css("background-color", "#938089")
+                },
+                function(){
+                    $(".nav-container").css("background-color", "#dfe8e0")
+                }
+            );
+
+            $(".item-2").hover(
+                function(){
+                    $(".nav-container").css("background-color", "#000")
+                },
+                function(){
+                    $(".nav-container").css("background-color", "#dfe8e0")
+                }
+            );
+        });
+    </script>
+</body>
+</html>
